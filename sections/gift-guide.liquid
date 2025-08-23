@@ -48,8 +48,10 @@
           <!-- Added plus icon overlay for popup functionality -->
           <div class="plus-icon">+</div>
           <img 
-            src="{{ 'product-' | append: i | append: '.jpg' | asset_url }}" 
+            src="{{ 'product-' | append: i | append: '.jpg' | asset_url: width: 600 }}" 
             alt="Product {{ i }}"
+            width="{{ block.settings.image.width }}" 
+            height="{{ block.settings.image.height }}"
             loading="lazy"
           >
         </div>
