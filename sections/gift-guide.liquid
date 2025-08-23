@@ -1,28 +1,36 @@
 <div class="gift-guide-container">
   <!-- Header -->
-  <header class="gift-guide-header">
-    <div class="logo">TISSO VISON</div>
+ <header class="gift-guide-header">
+  <!-- Logo (always visible) -->
+  <div class="logo">TISSO VISION</div>
+
+  <!-- Desktop tagline and button -->
+  <div class="desktop-menu">
     <div class="tagline">Find the ideal gift for your loved ones.</div>
     <button class="choose-gift-btn" onclick="handleChooseGift()">
       CHOOSE GIFT
       <span class="arrow">→</span>
     </button>
-    <div class="mobile-header">
-  <h1 class="title">Gift Guide</h1>
-  <button class="menu-toggle" onclick="toggleMenu()">
-    &#9776; <!-- hamburger icon -->
-  </button>
-</div>
+  </div>
 
-<div class="mobile-menu-content">
-  <div class="tagline">Find the ideal gift for your loved ones.</div>
-  <button class="choose-gift-btn" onclick="handleChooseGift()">
-    CHOOSE GIFT
-    <span class="arrow">→</span>
-  </button>
-</div>
+  <!-- Mobile header: title + hamburger -->
+  <div class="mobile-header">
+    <h1 class="title">Gift Guide</h1>
+    <button class="menu-toggle" onclick="toggleMenu()">
+      &#9776; <!-- hamburger icon -->
+    </button>
+  </div>
 
-  </header>
+  <!-- Mobile menu content (hidden by default) -->
+  <div class="mobile-menu-content">
+    <div class="tagline">Find the ideal gift for your loved ones.</div>
+    <button class="choose-gift-btn" onclick="handleChooseGift()">
+      CHOOSE GIFT
+      <span class="arrow">→</span>
+    </button>
+  </div>
+</header>
+
 
   <!-- Main Hero Section -->
   <main class="hero-section">
