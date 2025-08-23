@@ -544,23 +544,37 @@
       padding: 32px 12px;
     }
     /* Hide menu by default */
+/* Desktop: show desktop menu, hide mobile menu */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-header,
 .mobile-menu-content {
-  display: none;
-  margin-top: 10px;
+  display: none; /* hidden by default */
 }
 
-/* Show menu when toggled */
-.mobile-menu-content.show {
-  display: block;
+/* Mobile: hide desktop, show mobile header */
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none; /* hide desktop menu */
+  }
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mobile-menu-content {
+    display: none; /* initially hidden, toggle via JS */
+    margin-top: 10px;
+  }
+  .mobile-menu-content.show {
+    display: block; /* show when menu toggled */
+  }
 }
 
-/* Menu toggle button styling */
-.menu-toggle {
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
 
   }
 </style>
