@@ -1,93 +1,68 @@
-<div class="gift-guide-container">
+<div class="gift-guide-banner-container">
   <!-- Header -->
- <header class="gift-guide-header">
-  <!-- Logo (always visible) -->
-  <div class="logo">TISSO VISION</div>
+  <header class="gift-guide-header">
+    <!-- Logo (always visible) -->
+    <div class="logo">{{ section.settings.logo_text | default: 'TISSO VISION' }}</div>
 
-  <!-- Desktop tagline and button -->
-  <div class="desktop-menu">
-    <div class="tagline">Find the ideal gift for your loved ones.</div>
-    <button class="choose-gift-btn" onclick="handleChooseGift()">
-      CHOOSE GIFT
-      <span class="arrow">→</span>
-    </button>
-  </div>
+    <!-- Desktop tagline and button -->
+    <div class="desktop-menu">
+      <div class="tagline">{{ section.settings.tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
+      <a href="{{ section.settings.choose_gift_url | default: '/collections/all' }}" class="choose-gift-btn">
+        CHOOSE GIFT
+        <span class="arrow">→</span>
+      </a>
+    </div>
 
-  <!-- Mobile header: title + hamburger -->
-  <div class="mobile-header">
-    <h1 class="title">Gift Guide</h1>
-    <button class="menu-toggle" onclick="toggleMenu()">
-      &#9776; <!-- hamburger icon -->
-    </button>
-  </div>
+    <!-- Mobile header: logo + hamburger -->
+    <div class="mobile-header">
+      <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span class="hamburger-icon">&#9776;</span>
+      </button>
+    </div>
+  </header>
 
   <!-- Mobile menu content (hidden by default) -->
-  <div class="mobile-menu-content">
-    <div class="tagline">Find the ideal gift for your loved ones.</div>
-    <button class="choose-gift-btn" onclick="handleChooseGift()">
+  <div class="mobile-menu-content" id="mobileMenu">
+    <div class="tagline">{{ section.settings.tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
+    <a href="{{ section.settings.choose_gift_url | default: '/collections/all' }}" class="choose-gift-btn">
       CHOOSE GIFT
       <span class="arrow">→</span>
-    </button>
+    </a>
   </div>
-</header>
-
 
   <!-- Main Hero Section -->
   <main class="hero-section">
-    <!-- Decorative Illustrations Background -->
-    <!-- Replaced decorative illustrations with the provided banner image -->
+    <!-- <CHANGE> Updated banner background to use the provided SVG image -->
     <div class="banner-bg">
-  <img src="{{ 'main-banner.svg' | asset_url }}" alt="Gift Guide Banner" class="banner-image" width="1200" height="400">
-</div>
-
-
-
-
+      <img src="{{ 'main-banner.svg' | asset_url }}" alt="Gift Guide Banner" class="banner-image" width="1200" height="400">
+    </div>
 
     <!-- Content -->
     <div class="hero-content">
-      <h1 class="main-title">The Gift Guide</h1>
+      <h1 class="main-title">{{ section.settings.main_title | default: 'The Gift Guide' }}</h1>
 
       <div class="description">
-        <p class="subtitle">Discover Joy: Your Ultimate Holiday Gift Destination.</p>
+        <p class="subtitle">{{ section.settings.subtitle | default: 'Discover Joy: Your Ultimate Holiday Gift Destination.' }}</p>
         <p class="body-text">
-          Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.
+          {{ section.settings.description | default: 'Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.' }}
         </p>
       </div>
 
-      <button class="shop-now-btn" onclick="handleShopNow()">
+      <a href="{{ section.settings.shop_url | default: '/collections/all' }}" class="shop-now-btn">
         SHOP NOW
         <span class="arrow">→</span>
-      </button>
+      </a>
     </div>
 
     <!-- Bottom Text -->
     <div class="sustainability-text">
-      SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL
+      {{ section.settings.sustainability_text | default: 'SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL' }}
     </div>
   </main>
-
-  <!-- Product Grid -->
- <section class="product-grid">
-  <div class="grid-container">
-    {% for i in (1..6) %}
-      <div class="product-item" onclick="handleProductClick({{ i }})">
-        <!-- Plus icon overlay -->
-        <div class="plus-icon">+</div>
-
-        {% assign product_image = 'product-' | append: i | append: '.jpg' %}
-        {{ product_image | asset_url | image_tag: width: 600, height: 600, alt: 'Product ' | append: i, class: 'product-image' }}
-      </div>
-    {% endfor %}
-  </div>
-</section>
-
-
 </div>
 
 <style>
-  .gift-guide-container {
-    min-height: 100vh;
+  .gift-guide-banner-container {
     background-color: #f8f8f8;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
@@ -99,6 +74,7 @@
     justify-content: space-between;
     padding: 24px 32px;
     background-color: #f5f5f5;
+    position: relative;
   }
 
   .logo {
@@ -106,6 +82,13 @@
     font-weight: bold;
     letter-spacing: 0.1em;
     color: black;
+  }
+
+  /* <CHANGE> Desktop menu styling */
+  .desktop-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
   }
 
   .tagline {
@@ -124,12 +107,41 @@
     align-items: center;
     gap: 8px;
     transition: all 0.3s ease;
+    text-decoration: none;
   }
 
-  /* Added hover effect for choose gift button - yellow to black */
   .choose-gift-btn:hover {
     background-color: black;
     color: white;
+  }
+
+  /* <CHANGE> Mobile header and menu styling */
+  .mobile-header {
+    display: none;
+  }
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    color: black;
+  }
+
+  .mobile-menu-content {
+    display: none;
+    padding: 20px 32px;
+    background-color: #f5f5f5;
+    border-top: 1px solid #e0e0e0;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mobile-menu-content.show {
+    display: flex;
   }
 
   .arrow {
@@ -144,7 +156,6 @@
     overflow: hidden;
   }
 
-  /* Updated banner background to use the provided SVG image */
   .banner-bg {
     position: absolute;
     top: 0;
@@ -161,105 +172,6 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
-  }
-
-  .decorative-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0.3;
-    pointer-events: none;
-  }
-
-  .illustration {
-    position: absolute;
-  }
-
-  .illustration img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .illustration-1 {
-    top: 48px;
-    left: 80px;
-  }
-
-  .illustration-1 img {
-    width: 120px;
-    height: 60px;
-  }
-
-  .illustration-2 {
-    top: 32px;
-    right: 128px;
-  }
-
-  .illustration-2 img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .illustration-3 {
-    top: 128px;
-    left: 33%;
-  }
-
-  .illustration-3 img {
-    width: 140px;
-    height: 100px;
-  }
-
-  .illustration-4 {
-    top: 80px;
-    right: 80px;
-  }
-
-  .illustration-4 img {
-    width: 100px;
-    height: 120px;
-  }
-
-  .illustration-5 {
-    bottom: 128px;
-    left: 64px;
-  }
-
-  .illustration-5 img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .illustration-6 {
-    bottom: 80px;
-    right: 160px;
-  }
-
-  .illustration-6 img {
-    width: 120px;
-    height: 90px;
-  }
-
-  .illustration-7 {
-    top: 50%;
-    right: 64px;
-  }
-
-  .illustration-7 img {
-    width: 80px;
-    height: 100px;
-  }
-
-  .illustration-8 {
-    bottom: 160px;
-    left: 50%;
-  }
-
-  .illustration-8 img {
-    width: 100px;
-    height: 70px;
   }
 
   .hero-content {
@@ -305,9 +217,9 @@
     align-items: center;
     gap: 8px;
     transition: all 0.3s ease;
+    text-decoration: none;
   }
 
-  /* Added hover effect for shop now button - black to yellow */
   .shop-now-btn:hover {
     background-color: #fff544;
     color: black;
@@ -323,70 +235,17 @@
     letter-spacing: 0.05em;
   }
 
-  /* Product Grid */
-  .product-grid {
-    padding: 64px 32px;
-    background-color: white;
-  }
-
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1152px;
-    margin: 0 auto;
-  }
-
-  .product-item {
-    position: relative;
-    aspect-ratio: 1;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-  }
-
-  .product-item:hover {
-    transform: scale(1.02);
-  }
-
-  /* Added plus icon styling for popup functionality */
-  .plus-icon {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 24px;
-    height: 24px;
-    background-color: white;
-    color: black;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    font-weight: bold;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-  }
-
-  .plus-icon:hover {
-    background-color: black;
-    color: white;
-    transform: scale(1.1);
-  }
-
-  .product-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  /* Responsive Design */
+  /* <CHANGE> Mobile responsive design with hamburger menu */
   @media (max-width: 768px) {
+    .desktop-menu {
+      display: none;
+    }
+
+    .mobile-header {
+      display: block;
+    }
+
     .gift-guide-header {
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
       padding: 20px 16px;
     }
 
@@ -396,14 +255,11 @@
 
     .tagline {
       font-size: 16px;
-      max-width: 280px;
-      margin: 0 auto;
     }
 
     .choose-gift-btn {
       padding: 14px 28px;
       font-size: 14px;
-      align-self: center;
     }
 
     .hero-section {
@@ -413,10 +269,6 @@
     .main-title {
       font-size: 48px;
       margin-bottom: 24px;
-    }
-
-    .description {
-      margin-bottom: 32px;
     }
 
     .subtitle {
@@ -440,22 +292,8 @@
       padding: 0 16px;
     }
 
-    .grid-container {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      padding: 0 16px;
-    }
-
-    .plus-icon {
-      width: 20px;
-      height: 20px;
-      font-size: 14px;
-      top: 8px;
-      right: 8px;
-    }
-
-    .banner-image {
-      object-position: center top;
+    .mobile-menu-content {
+      padding: 20px 16px;
     }
   }
 
@@ -464,177 +302,43 @@
       font-size: 18px;
     }
 
-    .tagline {
-      font-size: 14px;
-    }
-
-    .choose-gift-btn {
-      padding: 12px 24px;
-      font-size: 13px;
-    }
-
     .main-title {
       font-size: 36px;
-      margin-bottom: 20px;
-    }
-
-    .subtitle {
-      font-size: 15px;
-    }
-
-    .body-text {
-      font-size: 15px;
-    }
-
-    .shop-now-btn {
-      padding: 12px 24px;
-      font-size: 13px;
-    }
-
-    .grid-container {
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .product-grid {
-      padding: 40px 16px;
-    }
-
-    .sustainability-text {
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    .plus-icon {
-      width: 18px;
-      height: 18px;
-      font-size: 12px;
-      top: 6px;
-      right: 6px;
-    }
-  }
-
-  /* Added extra small screen optimization */
-  @media (max-width: 360px) {
-    .gift-guide-header {
-      padding: 16px 12px;
-    }
-    @media (min-width: 768px) {
-  .mobile-header, .mobile-menu-content {
-    display: none; /* hide on desktop */
-  }
-}
-
-
-    .hero-section {
-      padding: 32px 12px;
-    }
-
-    .main-title {
-      font-size: 32px;
     }
 
     .choose-gift-btn,
     .shop-now-btn {
-      padding: 10px 20px;
-      font-size: 12px;
+      padding: 12px 24px;
+      font-size: 13px;
     }
-
-    .product-grid {
-      padding: 32px 12px;
-    }
-    /* Hide menu by default */
-/* Desktop: show desktop menu, hide mobile menu */
-.desktop-menu {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.mobile-header,
-.mobile-menu-content {
-  display: none; /* hidden by default */
-}
-
-/* Mobile: hide desktop, show mobile header */
-@media (max-width: 768px) {
-  .desktop-menu {
-    display: none; /* hide desktop menu */
-  }
-  .mobile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .mobile-menu-content {
-    display: none; /* initially hidden, toggle via JS */
-    margin-top: 10px;
-  }
-  .mobile-menu-content.show {
-    display: block; /* show when menu toggled */
-  }
-}
-
-
   }
 </style>
 
 <script>
-  function handleChooseGift() {
-    // Navigate to gift selection page or show gift picker
-    console.log('Choose gift clicked');
-    // Example: window.location.href = '/collections/gifts';
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const toggleBtn = document.querySelector('.menu-toggle .hamburger-icon');
+    
+    menu.classList.toggle('show');
+    
+    // <CHANGE> Toggle between hamburger and cross icons
+    if (menu.classList.contains('show')) {
+      toggleBtn.innerHTML = '&times;';
+    } else {
+      toggleBtn.innerHTML = '&#9776;';
+    }
   }
-
-  function handleShopNow() {
-    // Navigate to shop page
-    console.log('Shop now clicked');
-    // Example: window.location.href = '/collections/all';
-  }
-
-  function handleProductClick(productIndex) {
-    // Navigate to specific product or collection
-    console.log('Product clicked:', productIndex);
-    // Example: window.location.href = '/products/product-' + productIndex;
-  }
-
-  // Add smooth scroll behavior for better UX
-  document.addEventListener('DOMContentLoaded', function() {
-    // Add any initialization code here
-    console.log('Gift guide loaded');
-  });
-  <script>
-function toggleMenu() {
-  const menu = document.querySelector('.mobile-menu-content');
-  const btn = document.querySelector('.menu-toggle');
-  
-  menu.classList.toggle('show');
-
-  // Swap hamburger and cross
-  btn.innerHTML = menu.classList.contains('show') ? '&times;' : '&#9776;';
-}
-
-function handleChooseGift() {
-  alert('Choose Gift clicked!');
-}
-
-
-function handleChooseGift() {
-  alert('Choose Gift clicked!');
-}
-</script>
-
 </script>
 
 {% schema %}
 {
-  "name": "Gift Guide",
+  "name": "Gift Guide Banner",
   "settings": [
     {
       "type": "text",
       "id": "logo_text",
       "label": "Logo Text",
-      "default": "TISSO VISON"
+      "default": "TISSO VISION"
     },
     {
       "type": "text",
@@ -679,32 +383,9 @@ function handleChooseGift() {
       "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
     }
   ],
-  "blocks": [
-    {
-      "type": "product_image",
-      "name": "Product Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Product Image"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Product Link"
-        },
-        {
-          "type": "text",
-          "id": "alt_text",
-          "label": "Alt Text"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Gift Guide",
+      "name": "Gift Guide Banner",
       "category": "Custom"
     }
   ]
