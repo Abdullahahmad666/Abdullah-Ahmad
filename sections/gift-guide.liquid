@@ -14,7 +14,8 @@
     <!-- Decorative Illustrations Background -->
     <!-- Replaced decorative illustrations with the provided banner image -->
     <div class="banner-bg">
-      <img src="{{ 'main-banner.svg' | asset_url }}" alt="Gift Guide Banner" class="banner-image">
+      {{ 'main-banner.svg' | asset_url | image_tag: width: 1200, height: 400, alt: 'Gift Guide Banner', class: 'banner-image' }}
+
     </div>
 
     <!-- Content -->
