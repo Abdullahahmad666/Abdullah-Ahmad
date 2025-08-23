@@ -1,0 +1,370 @@
+<div class="gift-guide-banner-container">
+  <!-- Header -->
+  <header class="gift-guide-header">
+    <!-- Mobile header with hamburger on left side of logo -->
+    <div class="mobile-header">
+      <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span class="hamburger-icon">&#9776;</span>
+      </button>
+      <div class="logo">{{ section.settings.logo_text | default: 'TISSO VISION' }}</div>
+    </div>
+
+    <!-- Desktop logo separate from mobile -->
+    <div class="desktop-logo">
+      <div class="logo">{{ section.settings.logo_text | default: 'TISSO VISION' }}</div>
+    </div>
+
+    <!-- Desktop tagline and button -->
+    <div class="desktop-menu">
+      <div class="tagline">{{ section.settings.tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
+      <a href="{{ section.settings.choose_gift_url | default: '/collections/all' }}" class="choose-gift-btn">
+        CHOOSE GIFT
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Mobile menu content (hidden by default) -->
+  <div class="mobile-menu-content" id="mobileMenu">
+    <div class="tagline">{{ section.settings.tagline | default: 'Find the ideal gift for your loved ones.' }}</div>
+    <a href="{{ section.settings.choose_gift_url | default: '/collections/all' }}" class="choose-gift-btn">
+      CHOOSE GIFT
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <!-- Main Hero Section -->
+  <main class="hero-section">
+    <!-- Updated banner background to use the provided SVG image -->
+    <div class="banner-bg">
+      <img src="{{ 'main-banner.svg' | asset_url }}" alt="Gift Guide Banner" class="banner-image">
+    </div>
+
+    <!-- Content -->
+    <div class="hero-content">
+      <h1 class="main-title">{{ section.settings.main_title | default: 'The Gift Guide' }}</h1>
+
+      <!-- Combined description into single flowing text -->
+      <div class="description">
+        {{ section.settings.description | default: 'Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.' }}
+      </div>
+
+      <a href="{{ section.settings.shop_url | default: '/collections/all' }}" class="shop-now-btn">
+        SHOP NOW
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Updated sustainability text with different background -->
+    <div class="sustainability-text">
+      {{ section.settings.sustainability_text | default: 'SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR' }}
+    </div>
+  </main>
+</div>
+
+<style>
+  .gift-guide-banner-container {
+    background-color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Updated header background color */
+  .gift-guide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    background-color: #e8e8e8;
+    position: relative;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: black;
+  }
+
+  /* Desktop menu styling */
+  .desktop-menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .tagline {
+    color: black;
+    font-size: 18px;
+  }
+
+  .choose-gift-btn {
+    background-color: #fff544;
+    color: black;
+    padding: 12px 24px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .choose-gift-btn:hover {
+    background-color: black;
+    color: white;
+  }
+
+  /* Mobile header and menu styling */
+  .mobile-header {
+    display: none;
+  }
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    color: black;
+  }
+
+  /* Updated mobile menu background color */
+  .mobile-menu-content {
+    display: none;
+    padding: 20px 32px;
+    background-color: #e8e8e8;
+    border-top: 1px solid #d0d0d0;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .mobile-menu-content.show {
+    display: flex;
+  }
+
+  .arrow {
+    font-size: 20px;
+  }
+
+  /* Updated hero section background and banner positioning */
+  .hero-section {
+    position: relative;
+    background-color: white;
+    overflow: hidden;
+    min-height: 600px;
+    display: flex;
+    align-items: stretch;
+  }
+
+  /* Desktop layout: text on left, dual images on top and right */
+  .hero-content {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 40px;
+    z-index: 10;
+    background-color: white;
+  }
+
+  .banner-bg {
+    width: 60%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Adding second image for top positioning */
+  .banner-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background-image: url('{{ 'main-banner.svg' | asset_url }}');
+    background-size: cover;
+    background-position: center top;
+    z-index: 1;
+  }
+
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: 25%;
+    right: 0;
+    width: 75%;
+    height: 75%;
+  }
+
+  /* Updated sustainability text with different background */
+  .sustainability-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #f0f0f0;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 16px 32px;
+    z-index: 15;
+  }
+
+  /* Mobile responsive design with text above image and button overlay */
+  @media (max-width: 768px) {
+    .desktop-menu {
+      display: none;
+    }
+
+    .desktop-logo {
+      display: none;
+    }
+
+    .mobile-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Mobile layout: vertical stack with text above image */
+    .hero-section {
+      flex-direction: column;
+      min-height: auto;
+      max-width: 375px;
+      margin: 0 auto;
+    }
+
+    /* Text content positioned above image */
+    .hero-content {
+      width: 100%;
+      padding: 30px 20px;
+      background-color: white;
+      position: relative;
+      z-index: 10;
+      order: 1;
+    }
+
+    /* Image container positioned after text */
+    .banner-bg {
+      width: 100%;
+      height: 421px;
+      position: relative;
+      order: 2;
+    }
+
+    /* Remove dual image effect on mobile */
+    .banner-bg::before {
+      display: none;
+    }
+
+    .banner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+      top: 0;
+      right: 0;
+    }
+
+    .arrow {
+      font-size: 20px;
+    }
+
+    /* Button overlay positioned at bottom center of image */
+    .shop-now-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 180px;
+      height: 45px;
+      z-index: 20;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .mobile-header {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const toggleBtn = document.querySelector('.menu-toggle .hamburger-icon');
+    
+    menu.classList.toggle('show');
+    
+    if (menu.classList.contains('show')) {
+      toggleBtn.innerHTML = '&times;';
+    } else {
+      toggleBtn.innerHTML = '&#9776;';
+    }
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Gift Guide Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo Text",
+      "default": "TISSO VISION"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Header Tagline",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main Title",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "url",
+      "id": "shop_url",
+      "label": "Shop Now URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "url",
+      "id": "choose_gift_url",
+      "label": "Choose Gift URL",
+      "default": "/collections/all"
+    },
+    {
+      "type": "text",
+      "id": "sustainability_text",
+      "label": "Sustainability Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gift Guide Banner",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
