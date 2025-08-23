@@ -581,6 +581,26 @@
     // Add any initialization code here
     console.log('Gift guide loaded');
   });
+  <script>
+function toggleMenu() {
+  const menu = document.querySelector('.mobile-menu-content');
+  const btn = document.querySelector('.menu-toggle');
+  
+  menu.classList.toggle('show');
+
+  // Toggle icon between hamburger and cross
+  if (menu.classList.contains('show')) {
+    btn.innerHTML = '&times;'; // cross
+  } else {
+    btn.innerHTML = '&#9776;'; // hamburger
+  }
+}
+
+function handleChooseGift() {
+  alert('Choose Gift clicked!');
+}
+</script>
+
 </script>
 
 {% schema %}
