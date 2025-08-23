@@ -1,8 +1,18 @@
 <div class="gift-guide-banner-container">
   <!-- Header -->
   <header class="gift-guide-header">
-    <!-- Logo (always visible) -->
-    <div class="logo">{{ section.settings.logo_text | default: 'TISSO VISION' }}</div>
+    <!-- Mobile header with hamburger on left side of logo -->
+    <div class="mobile-header">
+      <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
+        <span class="hamburger-icon">&#9776;</span>
+      </button>
+      <div class="logo">{{ section.settings.logo_text | default: 'TISSO VISION' }}</div>
+    </div>
+
+    <!-- Desktop logo separate from mobile -->
+    <div class="desktop-logo">
+      <div class="logo">{{ section.settings.logo_text | default: 'TISSO VISION' }}</div>
+    </div>
 
     <!-- Desktop tagline and button -->
     <div class="desktop-menu">
@@ -11,13 +21,6 @@
         CHOOSE GIFT
         <span class="arrow">→</span>
       </a>
-    </div>
-
-    <!-- Mobile header: logo + hamburger -->
-    <div class="mobile-header">
-      <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle menu">
-        <span class="hamburger-icon">&#9776;</span>
-      </button>
     </div>
   </header>
 
@@ -32,7 +35,7 @@
 
   <!-- Main Hero Section -->
   <main class="hero-section">
-    <!-- <CHANGE> Updated banner background to use the provided SVG image -->
+    <!-- Updated banner background to use the provided SVG image -->
     <div class="banner-bg">
       <img src="{{ 'main-banner.svg' | asset_url }}" alt="Gift Guide Banner" class="banner-image" width="1200" height="400">
     </div>
@@ -84,7 +87,7 @@
     color: black;
   }
 
-  /* <CHANGE> Desktop menu styling */
+  /* Desktop menu styling */
   .desktop-menu {
     display: flex;
     align-items: center;
@@ -115,7 +118,7 @@
     color: white;
   }
 
-  /* <CHANGE> Mobile header and menu styling */
+  /* Mobile header and menu styling */
   .mobile-header {
     display: none;
   }
@@ -170,7 +173,7 @@
   .banner-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
   }
 
@@ -235,81 +238,31 @@
     letter-spacing: 0.05em;
   }
 
-  /* <CHANGE> Mobile responsive design with hamburger menu */
+  /* Mobile responsive design with hamburger menu */
   @media (max-width: 768px) {
     .desktop-menu {
       display: none;
     }
 
+    .desktop-logo {
+      display: none;
+    }
+
     .mobile-header {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .gift-guide-header {
-      padding: 20px 16px;
-    }
-
-    .logo {
-      font-size: 20px;
-    }
-
-    .tagline {
-      font-size: 16px;
-    }
-
-    .choose-gift-btn {
-      padding: 14px 28px;
-      font-size: 14px;
-    }
-
-    .hero-section {
-      padding: 40px 16px;
-    }
-
-    .main-title {
-      font-size: 48px;
-      margin-bottom: 24px;
-    }
-
-    .subtitle {
-      font-size: 16px;
-    }
-
-    .body-text {
-      font-size: 16px;
-    }
-
-    .shop-now-btn {
-      padding: 14px 28px;
-      font-size: 14px;
-    }
-
-    .sustainability-text {
-      position: static;
-      text-align: center;
-      margin-top: 32px;
-      font-size: 12px;
-      padding: 0 16px;
-    }
-
-    .mobile-menu-content {
-      padding: 20px 16px;
+    .banner-image {
+      object-fit: cover;
+      height: 300px;
     }
   }
 
-  @media (max-width: 480px) {
-    .logo {
-      font-size: 18px;
-    }
-
-    .main-title {
-      font-size: 36px;
-    }
-
-    .choose-gift-btn,
-    .shop-now-btn {
-      padding: 12px 24px;
-      font-size: 13px;
+  @media (min-width: 769px) {
+    .mobile-header {
+      display: none;
     }
   }
 </style>
@@ -321,7 +274,6 @@
     
     menu.classList.toggle('show');
     
-    // <CHANGE> Toggle between hamburger and cross icons
     if (menu.classList.contains('show')) {
       toggleBtn.innerHTML = '&times;';
     } else {
