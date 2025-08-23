@@ -15,7 +15,6 @@
     <!-- Replaced decorative illustrations with the provided banner image -->
     <div class="banner-bg">
       {{ 'main-banner.svg' | asset_url | image_tag: width: 1200, height: 400, alt: 'Gift Guide Banner', class: 'banner-image' }}
-
     </div>
 
     <!-- Content -->
@@ -42,23 +41,21 @@
   </main>
 
   <!-- Product Grid -->
-  <section class="product-grid">
-    <div class="grid-container">
-      {% for i in (1..6) %}
-        <div class="product-item" onclick="handleProductClick({{ i }})">
-          <!-- Added plus icon overlay for popup functionality -->
-          <div class="plus-icon">+</div>
-          <img 
-            src="{{ 'product-' | append: i | append: '.jpg' | asset_url: width: 600 }}" 
-            alt="Product {{ i }}"
-            width="{{ block.settings.image.width }}" 
-            height="{{ block.settings.image.height }}"
-            loading="lazy"
-          >
-        </div>
-      {% endfor %}
-    </div>
-  </section>
+ <section class="product-grid">
+  <div class="grid-container">
+    {% for i in (1..6) %}
+      <div class="product-item" onclick="handleProductClick({{ i }})">
+        <!-- Plus icon overlay -->
+        <div class="plus-icon">+</div>
+
+        {% assign product_image = 'product-' | append: i | append: '.jpg' %}
+        {{ product_image | asset_url | image_tag: width: 600, height: 600, alt: 'Product ' | append: i, class: 'product-image' }}
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+
 </div>
 
 <style>
