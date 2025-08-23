@@ -1,0 +1,539 @@
+<div class="gift-guide-container">
+  <!-- Header -->
+  <header class="gift-guide-header">
+    <div class="logo">TISSO VISON</div>
+    <div class="tagline">Find the ideal gift for your loved ones.</div>
+    <button class="choose-gift-btn" onclick="handleChooseGift()">
+      CHOOSE GIFT
+      <span class="arrow">→</span>
+    </button>
+  </header>
+
+  <!-- Main Hero Section -->
+  <main class="hero-section">
+    <!-- Decorative Illustrations Background -->
+    <!-- Replaced decorative illustrations with the provided banner image -->
+    <div class="banner-bg">
+      <img src="{{ 'main-banner.svg' | asset_url }}" alt="Gift Guide Banner" class="banner-image">
+    </div>
+
+    <!-- Content -->
+    <div class="hero-content">
+      <h1 class="main-title">The Gift Guide</h1>
+
+      <div class="description">
+        <p class="subtitle">Discover Joy: Your Ultimate Holiday Gift Destination.</p>
+        <p class="body-text">
+          Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.
+        </p>
+      </div>
+
+      <button class="shop-now-btn" onclick="handleShopNow()">
+        SHOP NOW
+        <span class="arrow">→</span>
+      </button>
+    </div>
+
+    <!-- Bottom Text -->
+    <div class="sustainability-text">
+      SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL
+    </div>
+  </main>
+
+  <!-- Product Grid -->
+  <section class="product-grid">
+    <div class="grid-container">
+      {% for i in (1..6) %}
+        <div class="product-item" onclick="handleProductClick({{ i }})">
+          <!-- Added plus icon overlay for popup functionality -->
+          <div class="plus-icon">+</div>
+          <img 
+            src="{{ 'product-' | append: i | append: '.jpg' | asset_url }}" 
+            alt="Product {{ i }}"
+            loading="lazy"
+          >
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<style>
+  .gift-guide-container {
+    min-height: 100vh;
+    background-color: #f8f8f8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Header Styles */
+  .gift-guide-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    background-color: #f5f5f5;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    color: black;
+  }
+
+  .tagline {
+    color: black;
+    font-size: 18px;
+  }
+
+  .choose-gift-btn {
+    background-color: #fff544;
+    color: black;
+    padding: 12px 24px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  /* Added hover effect for choose gift button - yellow to black */
+  .choose-gift-btn:hover {
+    background-color: black;
+    color: white;
+  }
+
+  .arrow {
+    font-size: 20px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    position: relative;
+    background-color: #f5f5f5;
+    padding: 64px 32px;
+    overflow: hidden;
+  }
+
+  /* Updated banner background to use the provided SVG image */
+  .banner-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .decorative-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  .illustration {
+    position: absolute;
+  }
+
+  .illustration img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .illustration-1 {
+    top: 48px;
+    left: 80px;
+  }
+
+  .illustration-1 img {
+    width: 120px;
+    height: 60px;
+  }
+
+  .illustration-2 {
+    top: 32px;
+    right: 128px;
+  }
+
+  .illustration-2 img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .illustration-3 {
+    top: 128px;
+    left: 33%;
+  }
+
+  .illustration-3 img {
+    width: 140px;
+    height: 100px;
+  }
+
+  .illustration-4 {
+    top: 80px;
+    right: 80px;
+  }
+
+  .illustration-4 img {
+    width: 100px;
+    height: 120px;
+  }
+
+  .illustration-5 {
+    bottom: 128px;
+    left: 64px;
+  }
+
+  .illustration-5 img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .illustration-6 {
+    bottom: 80px;
+    right: 160px;
+  }
+
+  .illustration-6 img {
+    width: 120px;
+    height: 90px;
+  }
+
+  .illustration-7 {
+    top: 50%;
+    right: 64px;
+  }
+
+  .illustration-7 img {
+    width: 80px;
+    height: 100px;
+  }
+
+  .illustration-8 {
+    bottom: 160px;
+    left: 50%;
+  }
+
+  .illustration-8 img {
+    width: 100px;
+    height: 70px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 512px;
+  }
+
+  .main-title {
+    font-size: 72px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 32px;
+    line-height: 1.1;
+  }
+
+  .description {
+    margin-bottom: 48px;
+    max-width: 384px;
+  }
+
+  .subtitle {
+    font-weight: 600;
+    color: black;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .body-text {
+    color: black;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  .shop-now-btn {
+    background-color: black;
+    color: white;
+    padding: 16px 32px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+
+  /* Added hover effect for shop now button - black to yellow */
+  .shop-now-btn:hover {
+    background-color: #fff544;
+    color: black;
+  }
+
+  .sustainability-text {
+    position: absolute;
+    bottom: 32px;
+    left: 32px;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* Product Grid */
+  .product-grid {
+    padding: 64px 32px;
+    background-color: white;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1152px;
+    margin: 0 auto;
+  }
+
+  .product-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .product-item:hover {
+    transform: scale(1.02);
+  }
+
+  /* Added plus icon styling for popup functionality */
+  .plus-icon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    color: black;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .plus-icon:hover {
+    background-color: black;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  .product-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .gift-guide-header {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+      padding: 20px 16px;
+    }
+
+    .logo {
+      font-size: 20px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      max-width: 280px;
+      margin: 0 auto;
+    }
+
+    .choose-gift-btn {
+      padding: 14px 28px;
+      font-size: 14px;
+      align-self: center;
+    }
+
+    .hero-section {
+      padding: 40px 16px;
+    }
+
+    .main-title {
+      font-size: 48px;
+      margin-bottom: 24px;
+    }
+
+    .description {
+      margin-bottom: 32px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+    }
+
+    .body-text {
+      font-size: 16px;
+    }
+
+    .shop-now-btn {
+      padding: 14px 28px;
+      font-size: 14px;
+    }
+
+    .sustainability-text {
+      position: static;
+      text-align: center;
+      margin-top: 32px;
+      font-size: 12px;
+      padding: 0 16px;
+    }
+
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 0 16px;
+    }
+
+    .plus-icon {
+      width: 20px;
+      height: 20px;
+      font-size: 14px;
+      top: 8px;
+      right: 8px;
+    }
+
+    .banner-image {
+      object-position: center top;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo {
+      font-size: 18px;
+    }
+
+    .tagline {
+      font-size: 14px;
+    }
+
+    .choose-gift-btn {
+      padding: 12px 24px;
+      font-size: 13px;
+    }
+
+    .main-title {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+    }
+
+    .body-text {
+      font-size: 15px;
+    }
+
+    .shop-now-btn {
+      padding: 12px 24px;
+      font-size: 13px;
+    }
+
+    .grid-container {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .product-grid {
+      padding: 40px 16px;
+    }
+
+    .sustainability-text {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .plus-icon {
+      width: 18px;
+      height: 18px;
+      font-size: 12px;
+      top: 6px;
+      right: 6px;
+    }
+  }
+
+  /* Added extra small screen optimization */
+  @media (max-width: 360px) {
+    .gift-guide-header {
+      padding: 16px 12px;
+    }
+
+    .hero-section {
+      padding: 32px 12px;
+    }
+
+    .main-title {
+      font-size: 32px;
+    }
+
+    .choose-gift-btn,
+    .shop-now-btn {
+      padding: 10px 20px;
+      font-size: 12px;
+    }
+
+    .product-grid {
+      padding: 32px 12px;
+    }
+  }
+</style>
+
+<script>
+  function handleChooseGift() {
+    // Navigate to gift selection page or show gift picker
+    console.log('Choose gift clicked');
+    // Example: window.location.href = '/collections/gifts';
+  }
+
+  function handleShopNow() {
+    // Navigate to shop page
+    console.log('Shop now clicked');
+    // Example: window.location.href = '/collections/all';
+  }
+
+  function handleProductClick(productIndex) {
+    // Navigate to specific product or collection
+    console.log('Product clicked:', productIndex);
+    // Example: window.location.href = '/products/product-' + productIndex;
+  }
+
+  // Add smooth scroll behavior for better UX
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add any initialization code here
+    console.log('Gift guide loaded');
+  });
+</script>
