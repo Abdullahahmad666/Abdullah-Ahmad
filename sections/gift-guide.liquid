@@ -610,13 +610,14 @@ function toggleMenu() {
   
   menu.classList.toggle('show');
 
-  // Toggle icon between hamburger and cross
-  if (menu.classList.contains('show')) {
-    btn.innerHTML = '&times;'; // cross
-  } else {
-    btn.innerHTML = '&#9776;'; // hamburger
-  }
+  // Swap hamburger and cross
+  btn.innerHTML = menu.classList.contains('show') ? '&times;' : '&#9776;';
 }
+
+function handleChooseGift() {
+  alert('Choose Gift clicked!');
+}
+
 
 function handleChooseGift() {
   alert('Choose Gift clicked!');
